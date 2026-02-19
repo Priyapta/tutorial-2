@@ -1,0 +1,54 @@
+[gd_scene format=3 uid="uid://cxbdvngc5llv"]
+
+[ext_resource type="Texture2D" uid="uid://88c085wiwmbo" path="res://assets/PixelStarshipsPackage_Asteroids_01.png" id="1_pnlcj"]
+[ext_resource type="Script" uid="uid://dmvspy4qva7kj" path="res://scenes/asteorid.gd" id="1_r7add"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_r7add"]
+atlas = ExtResource("1_pnlcj")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_vkvop"]
+atlas = ExtResource("1_pnlcj")
+region = Rect2(32, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_j2rmn"]
+atlas = ExtResource("1_pnlcj")
+region = Rect2(0, 32, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_e47fq"]
+atlas = ExtResource("1_pnlcj")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_snmpw"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_r7add")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_vkvop")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_j2rmn")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_e47fq")
+}],
+"loop": true,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_ex7vj"]
+
+[node name="Area2D" type="Area2D" unique_id=998413596]
+script = ExtResource("1_r7add")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=950494021]
+position = Vector2(1, 0)
+sprite_frames = SubResource("SpriteFrames_snmpw")
+frame_progress = 0.53398925
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2082520122]
+position = Vector2(0, -1)
+shape = SubResource("CircleShape2D_ex7vj")

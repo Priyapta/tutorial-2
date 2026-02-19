@@ -1,0 +1,51 @@
+[gd_scene format=3 uid="uid://rxc1wi3t706c"]
+
+[ext_resource type="Script" uid="uid://4f1b2jchjrlg" path="res://scripts/s_asteroid.gd" id="1_b5poi"]
+[ext_resource type="Texture2D" uid="uid://88c085wiwmbo" path="res://assets/PixelStarshipsPackage_Asteroids_01.png" id="1_dp7wn"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_b5poi"]
+atlas = ExtResource("1_dp7wn")
+region = Rect2(0, 0, 32, 32)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3crsc"]
+atlas = ExtResource("1_dp7wn")
+region = Rect2(32, 32, 32, 32)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_bjwvx"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_b5poi")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3crsc")
+}],
+"loop": true,
+"name": &"default",
+"speed": 3.0
+}]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_6km7b"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_b5poi"]
+radius = 7.071068
+
+[node name="SAsteroid" type="CharacterBody2D" unique_id=77252510 groups=["meteor"]]
+script = ExtResource("1_b5poi")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=752660711]
+position = Vector2(0, -2)
+sprite_frames = SubResource("SpriteFrames_bjwvx")
+autoplay = "default"
+frame_progress = 0.045456856
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1060134678]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=1923567096]
+position = Vector2(-1, 0)
+shape = SubResource("CircleShape2D_6km7b")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=808391442]
+shape = SubResource("CircleShape2D_b5poi")
+
+[connection signal="body_shape_entered" from="Area2D" to="." method="_on_area_2d_body_shape_entered"]

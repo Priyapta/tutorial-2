@@ -1,0 +1,111 @@
+[gd_scene format=3 uid="uid://djfwcrs2ukmp5"]
+
+[ext_resource type="Script" uid="uid://p6pgvbliuiln" path="res://scripts/world.gd" id="1_qhfa5"]
+[ext_resource type="Texture2D" uid="uid://dwur1nc6d5euc" path="res://assets/blue-back.png" id="2_6qyud"]
+[ext_resource type="PackedScene" uid="uid://cenpdvq3vqgib" path="res://scenes/character.tscn" id="2_dondh"]
+[ext_resource type="PackedScene" uid="uid://mpsyfldf7f4h" path="res://scenes/landasan.tscn" id="3_4ygak"]
+[ext_resource type="Script" uid="uid://02afm20hy38j" path="res://scripts/timer.gd" id="5_238sx"]
+[ext_resource type="Script" uid="uid://c25yw8qq5ks5x" path="res://scripts/spawner.gd" id="6_238sx"]
+[ext_resource type="Script" uid="uid://3l14wen08sai" path="res://scripts/finish_area.gd" id="9_5x2ja"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_76phl"]
+size = Vector2(1089, 62)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_qhfa5"]
+size = Vector2(638, 28.000002)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_2ysve"]
+size = Vector2(1369, 31.999746)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_238sx"]
+size = Vector2(673, 28.000002)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_6qyud"]
+bg_color = Color(0.3882353, 0.67058825, 0.5019608, 0.45490196)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5x2ja"]
+size = Vector2(121.25955, 194.22203)
+
+[node name="Node2D2" type="Node2D" unique_id=166314549]
+script = ExtResource("1_qhfa5")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=744442596]
+position = Vector2(642, 359.49997)
+scale = Vector2(4.713235, 4.5437493)
+texture = ExtResource("2_6qyud")
+
+[node name="StaticBody2D2" type="StaticBody2D" parent="." unique_id=1708630735]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="StaticBody2D2" unique_id=2007543130]
+position = Vector2(598, 692)
+shape = SubResource("RectangleShape2D_76phl")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1981638317]
+position = Vector2(1274, 316)
+rotation = -1.5707963
+shape = SubResource("RectangleShape2D_qhfa5")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="StaticBody2D2" unique_id=1851737290]
+position = Vector2(587.5, 4.000023)
+rotation = -3.1415925
+shape = SubResource("RectangleShape2D_2ysve")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D2" unique_id=639044436]
+position = Vector2(21, 332)
+rotation = 4.712389
+shape = SubResource("RectangleShape2D_238sx")
+
+[node name="CharacterBody2D" parent="." unique_id=1050103555 groups=["player"] instance=ExtResource("2_dondh")]
+position = Vector2(269, 336)
+collision_layer = 3
+collision_mask = 3
+
+[node name="Timer" type="Timer" parent="." unique_id=288381371]
+wait_time = 0.4
+autostart = true
+script = ExtResource("5_238sx")
+
+[node name="spawner" type="Node2D" parent="." unique_id=331626287]
+position = Vector2(1097, 391)
+script = ExtResource("6_238sx")
+
+[node name="spawn_3" type="Marker2D" parent="spawner" unique_id=1061068654]
+position = Vector2(93, -50)
+
+[node name="spawn_2" type="Marker2D" parent="spawner" unique_id=312944400]
+position = Vector2(99, 32)
+
+[node name="spawn_4" type="Marker2D" parent="spawner" unique_id=238395446]
+position = Vector2(96, 128)
+
+[node name="spawn_5" type="Marker2D" parent="spawner" unique_id=135067535]
+position = Vector2(133, 245)
+
+[node name="spawn_1" type="Marker2D" parent="spawner" unique_id=1851879198]
+position = Vector2(96, -304)
+
+[node name="Panel" type="Panel" parent="." unique_id=444844154]
+offset_left = 1121.0
+offset_top = 667.0
+offset_right = 1288.0
+offset_bottom = 757.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_6qyud")
+
+[node name="landasan" parent="." unique_id=787738838 instance=ExtResource("3_4ygak")]
+position = Vector2(1171, 645)
+collision_layer = 2
+
+[node name="finishArea" type="Area2D" parent="." unique_id=718702258]
+position = Vector2(1080.5, 642)
+scale = Vector2(1.1339288, 0.29605263)
+script = ExtResource("9_5x2ja")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="finishArea" unique_id=1409453572]
+position = Vector2(113.98413, 191.68896)
+scale = Vector2(1, 0.99999976)
+shape = SubResource("RectangleShape2D_5x2ja")
+
+[connection signal="timeout" from="Timer" to="spawner" method="_on_timer_timeout"]
+[connection signal="body_entered" from="finishArea" to="finishArea" method="_on_body_entered"]
